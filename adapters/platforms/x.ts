@@ -1,4 +1,5 @@
-import type { ProfileData, ProfilePost } from '@/shared/types';
+import type { AnalysisPurpose, ProfileData, ProfilePost } from '@/shared/types';
+import type { CollectionControls, PlatformAdapter } from './base';
 
 const RESERVED_PATHS = new Set(['home', 'explore', 'notifications', 'messages', 'i', 'settings', 'search', 'compose']);
 const MAX_POSTS = 100;
@@ -35,12 +36,15 @@ function readVisiblePosts(handle: string): ProfilePost[] {
     const id = statusLink.getAttribute('href') ?? postText;
     if (!postText || seen.has(id)) continue;
     seen.add(id);
-    posts.push({ text: postText, timestamp: article.querySelector('time')?.getAttribute('datetime') ?? null });
+    posts.push({ text: postText, timestamp: article.querySelector('time')?.getAttribute('datetime') ?? null, url: new URL(id, location.origin).href });
   }
   return posts;
 }
 
-export async function collectXProfile(): Promise<ProfileData> {
+export async function collectXProfile(
+  analysisPurpose: AnalysisPurpose,
+  controls?: CollectionControls,
+): Promise<ProfileData> {
   const handle = currentHandle();
   if (!handle) throw new Error('当前页面不是用户主页');
   const originalY = window.scrollY;
@@ -48,11 +52,13 @@ export async function collectXProfile(): Promise<ProfileData> {
   let unchangedRounds = 0;
 
   for (let round = 0; round < MAX_SCROLL_ROUNDS && collected.size < MAX_POSTS; round += 1) {
+    if (controls?.isCancelled?.()) break;
     const before = collected.size;
     for (const post of readVisiblePosts(handle)) {
       collected.set(`${post.timestamp}:${post.text}`, post);
       if (collected.size >= MAX_POSTS) break;
     }
+    controls?.onProgress?.(collected.size);
     unchangedRounds = collected.size === before ? unchangedRounds + 1 : 0;
     if (unchangedRounds >= MAX_UNCHANGED_ROUNDS) break;
     const visibleArticles = document.querySelectorAll<HTMLElement>('article[data-testid="tweet"]');
@@ -70,6 +76,13 @@ export async function collectXProfile(): Promise<ProfileData> {
     bio: text('div[data-testid="UserDescription"]'),
     location: text('span[data-testid="UserLocation"]'),
     profileUrl: `${location.origin}/${handle}`,
+    analysisPurpose,
     posts: Array.from(collected.values()).slice(0, MAX_POSTS),
   };
 }
+
+export const xAdapter: PlatformAdapter = {
+  id: 'X',
+  isProfilePage: isXProfilePage,
+  collectProfile: collectXProfile,
+};

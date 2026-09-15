@@ -9,6 +9,13 @@ export const DEFAULT_SETTINGS: Settings = {
   baseUrl: 'https://api.deepseek.com/v1',
   model: 'deepseek-chat',
   outputLanguage: 'zh-CN',
+  sellerName: '',
+  companyName: '',
+  offer: '',
+  advantages: '',
+  targetAudience: '',
+  callToAction: '',
+  bannedWords: '',
 };
 
 export async function getSettings(): Promise<Settings> {
@@ -32,4 +39,17 @@ export async function setAnalysisState(state: AnalysisState) {
 export async function getAnalysisState(): Promise<AnalysisState> {
   const stored = await browser.storage.local.get(ANALYSIS_KEY);
   return (stored[ANALYSIS_KEY] as AnalysisState | undefined) ?? { status: 'idle' };
+}
+
+export async function clearCurrentAnalysis() {
+  await setAnalysisState({ status: 'idle' });
+}
+
+export async function clearApiKey() {
+  const settings = await getSettings();
+  await saveSettings({ ...settings, apiKey: '' });
+}
+
+export async function clearAllLocalData() {
+  await browser.storage.local.clear();
 }

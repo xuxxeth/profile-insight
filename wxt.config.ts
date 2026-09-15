@@ -13,14 +13,10 @@ export default defineConfig({
     action: { default_title: 'Profile Insight' },
     options_ui: { page: 'options.html', open_in_tab: true },
     permissions: ['storage', 'sidePanel'],
+    optional_host_permissions: ['https://*/*'],
     host_permissions: [
       'https://x.com/*',
       'https://twitter.com/*',
-      'https://api.openai.com/*',
-      'https://api.deepseek.com/*',
-      'https://generativelanguage.googleapis.com/*',
-      'https://api.groq.com/*',
-      'https://api.siliconflow.cn/*',
     ],
   },
 });
