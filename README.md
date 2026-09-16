@@ -102,6 +102,8 @@ npm run zip
 
 ## 隐私与数据处理
 
+完整政策：[Profile Insight 隐私政策](privacy-policy.html)
+
 - API Key、扩展设置和分析历史保存在您的浏览器本地。
 - Profile Insight 开发者不运营数据中转服务器。
 - 公开主页资料和动态只会发送给您自行配置的大模型服务。
