@@ -17,7 +17,8 @@ export interface Settings {
   bannedWords: string;
 }
 
-export interface ProfilePost { text: string; timestamp: string | null; url: string }
+export type ProfilePostKind = 'post' | 'repost' | 'article' | 'image' | 'video' | 'document' | 'comment';
+export interface ProfilePost { text: string; timestamp: string | null; url: string; kind?: ProfilePostKind }
 
 export interface ProfileData {
   platform: PlatformId;
@@ -54,14 +55,16 @@ export interface InsightResult {
 
 export type AnalysisState =
   | { status: 'idle' }
-  | { status: 'collecting'; purpose: AnalysisPurpose; collected: number; tabId?: number }
+  | { status: 'collecting'; purpose: AnalysisPurpose; collected: number; loaded?: number; stage?: string; profileUrl?: string; tabId?: number }
   | { status: 'loading'; profile: ProfileData; startedAt: number }
   | { status: 'success'; profile: ProfileData; result: InsightResult; completedAt: number; cached?: boolean }
-  | { status: 'error'; profile?: ProfileData; message: string };
+  | { status: 'error'; profile?: ProfileData; message: string; purpose?: AnalysisPurpose; profileUrl?: string; tabId?: number };
 
 export type ExtensionMessage =
   | { type: 'OPEN_ANALYSIS_PANEL'; purpose: AnalysisPurpose }
-  | { type: 'COLLECTION_PROGRESS'; purpose: AnalysisPurpose; collected: number }
+  | { type: 'COLLECTION_PROGRESS'; purpose: AnalysisPurpose; collected: number; loaded?: number; stage?: string; profileUrl?: string }
+  | { type: 'COLLECTION_FAILED'; purpose: AnalysisPurpose; message: string; profileUrl?: string }
+  | { type: 'RETRY_COLLECTION'; tabId: number }
   | { type: 'CANCEL_COLLECTION'; tabId?: number }
   | { type: 'ANALYZE_PROFILE'; profile: ProfileData }
   | { type: 'REANALYZE_PROFILE'; profile: ProfileData }

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="560" viewBox="0 0 1400 560">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#070910"/><stop offset=".54" stop-color="#13172D"/><stop offset="1" stop-color="#271446"/></linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#536DFE"/><stop offset="1" stop-color="#A454F2"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#775CFF" stop-opacity=".52"/><stop offset="1" stop-color="#775CFF" stop-opacity="0"/></radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="20" stdDeviation="22" flood-color="#02030A" flood-opacity=".6"/></filter>
+  </defs>
+  <rect width="1400" height="560" fill="url(#bg)"/>
+  <circle cx="1270" cy="90" r="430" fill="url(#glow)"/>
+  <circle cx="560" cy="610" r="330" fill="url(#glow)" opacity=".35"/>
+  <g font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">
+    <g transform="translate(70 58)">
+      <rect width="58" height="58" rx="15" fill="url(#brand)"/>
+      <circle cx="26" cy="25" r="14" fill="none" stroke="white" stroke-width="5"/>
+      <path d="M36 35l12 12" stroke="white" stroke-width="7" stroke-linecap="round"/>
+      <path d="M29 11L17 31h9l-4 14 18-23H29z" fill="white"/>
+      <text x="78" y="39" fill="#E8EBFF" font-size="26" font-weight="700">PROFILE INSIGHT</text>
+    </g>
+    <text x="70" y="204" fill="#AEB7FF" font-size="22" font-weight="700" letter-spacing="4">为外贸与出海业务而做</text>
+    <text x="70" y="290" fill="white" font-size="66" font-weight="800">快速看懂海外客户</text>
+    <text x="70" y="355" fill="#B4B9CE" font-size="23">分析 LinkedIn 与 X 动态，找到相关的沟通切入点</text>
+    <g transform="translate(70 399)">
+      <rect width="118" height="40" rx="20" fill="#202645"/><text x="59" y="27" text-anchor="middle" fill="#B8C0FF" font-size="16">客户画像</text>
+      <rect x="132" width="118" height="40" rx="20" fill="#183A31"/><text x="191" y="27" text-anchor="middle" fill="#78DBB4" font-size="16">商业信号</text>
+      <rect x="264" width="118" height="40" rx="20" fill="#30254D"/><text x="323" y="27" text-anchor="middle" fill="#D5BCFF" font-size="16">活跃时间</text>
+      <rect x="396" width="118" height="40" rx="20" fill="#202645"/><text x="455" y="27" text-anchor="middle" fill="#B8C0FF" font-size="16">英文话术</text>
+    </g>
+    <text x="70" y="500" fill="#747C94" font-size="19">免费使用 · 配置自己的大模型 API · 数据保存在本地浏览器</text>
+
+    <g transform="translate(720 70)" filter="url(#shadow)">
+      <rect width="610" height="420" rx="28" fill="#121520" stroke="#3A4263" stroke-width="2"/>
+      <rect width="610" height="54" rx="28" fill="#1B1F2D"/>
+      <rect y="27" width="610" height="27" fill="#1B1F2D"/>
+      <circle cx="28" cy="27" r="7" fill="#FF7285"/><circle cx="51" cy="27" r="7" fill="#FFC663"/><circle cx="74" cy="27" r="7" fill="#65D6A2"/>
+      <rect x="105" y="14" width="320" height="26" rx="13" fill="#0D111A"/>
+      <text x="120" y="32" fill="#596176" font-size="12">linkedin.com/in/potential-client</text>
+      <g transform="translate(25 80)">
+        <circle cx="44" cy="44" r="44" fill="url(#brand)"/><text x="44" y="58" text-anchor="middle" fill="white" font-size="34" font-weight="800">P</text>
+        <rect x="110" y="11" width="210" height="17" rx="8" fill="#E2E5F0"/><rect x="110" y="43" width="300" height="11" rx="5" fill="#626A80"/><rect x="110" y="67" width="245" height="10" rx="5" fill="#41485B"/>
+        <rect x="418" y="19" width="142" height="50" rx="25" fill="url(#brand)"/><text x="489" y="51" text-anchor="middle" fill="white" font-size="14" font-weight="700">⚡ 点击分析</text>
+      </g>
+      <line x1="25" y1="190" x2="585" y2="190" stroke="#2B3040"/>
+      <g transform="translate(25 216)">
+        <rect width="338" height="166" rx="18" fill="#181B26" stroke="#2A3041"/>
+        <text x="18" y="31" fill="#8F97B0" font-size="13" font-weight="700">RECENT ACTIVITY</text>
+        <rect x="18" y="48" width="302" height="43" rx="10" fill="#222532"/><rect x="31" y="61" width="225" height="8" rx="4" fill="#7B849D"/><rect x="31" y="76" width="264" height="6" rx="3" fill="#4B5267"/>
+        <rect x="18" y="103" width="302" height="43" rx="10" fill="#222532"/><rect x="31" y="116" width="250" height="8" rx="4" fill="#7B849D"/><rect x="31" y="131" width="190" height="6" rx="3" fill="#4B5267"/>
+        <rect x="18" y="155" width="208" height="5" rx="2.5" fill="#4B5267"/>
+      </g>
+      <g transform="translate(382 216)">
+        <rect width="203" height="166" rx="18" fill="#202642" stroke="#48527E"/>
+        <text x="17" y="31" fill="#AEB7FF" font-size="12" font-weight="700">AI INSIGHT</text>
+        <text x="17" y="59" fill="white" font-size="16" font-weight="700">发现合作机会</text>
+        <rect x="17" y="74" width="66" height="23" rx="11" fill="#173B31"/><text x="50" y="90" text-anchor="middle" fill="#72DAB0" font-size="10">强信号</text>
+        <text x="17" y="124" fill="white" font-size="16" font-weight="700">推荐联系时间</text>
+        <text x="17" y="148" fill="#AEB7FF" font-size="13">对方 09:00 · 我的 21:00</text>
+      </g>
+    </g>
+  </g>
+</svg>

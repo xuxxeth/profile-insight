@@ -34,7 +34,15 @@ export default defineBackground(() => {
     }
 
     if (message.type === 'COLLECTION_PROGRESS') {
-      void setAnalysisState({ status: 'collecting', purpose: message.purpose, collected: message.collected, tabId: sender.tab?.id });
+      void setAnalysisState({ status: 'collecting', purpose: message.purpose, collected: message.collected, loaded: message.loaded, stage: message.stage, profileUrl: message.profileUrl, tabId: sender.tab?.id });
+    }
+
+    if (message.type === 'COLLECTION_FAILED') {
+      void setAnalysisState({ status: 'error', message: message.message, purpose: message.purpose, profileUrl: message.profileUrl, tabId: sender.tab?.id });
+    }
+
+    if (message.type === 'RETRY_COLLECTION') {
+      void browser.tabs.reload(message.tabId);
     }
 
     if (message.type === 'CANCEL_COLLECTION' && message.tabId) {

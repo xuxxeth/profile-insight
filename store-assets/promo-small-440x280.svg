@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="280" viewBox="0 0 440 280">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#080A11"/><stop offset=".56" stop-color="#151832"/><stop offset="1" stop-color="#29164A"/></linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#536DFE"/><stop offset="1" stop-color="#A454F2"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#775CFF" stop-opacity=".52"/><stop offset="1" stop-color="#775CFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="440" height="280" fill="url(#bg)"/>
+  <circle cx="392" cy="30" r="170" fill="url(#glow)"/>
+  <g font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">
+    <g transform="translate(24 22)">
+      <rect width="42" height="42" rx="11" fill="url(#brand)"/>
+      <circle cx="19" cy="18" r="10" fill="none" stroke="white" stroke-width="4"/>
+      <path d="M26 25l9 9" stroke="white" stroke-width="5" stroke-linecap="round"/>
+      <path d="M21 8l-9 15h7l-3 10 13-17h-8z" fill="white"/>
+      <text x="56" y="29" fill="#E8EBFF" font-size="19" font-weight="700">PROFILE INSIGHT</text>
+    </g>
+    <text x="24" y="112" fill="white" font-size="35" font-weight="800">快速看懂</text>
+    <text x="24" y="153" fill="url(#brand)" font-size="39" font-weight="900">海外客户</text>
+    <text x="25" y="184" fill="#AEB4CA" font-size="15">LinkedIn + X 公开动态分析</text>
+    <g transform="translate(24 213)">
+      <rect width="84" height="30" rx="15" fill="#202645"/><text x="42" y="21" text-anchor="middle" fill="#B8C0FF" font-size="12">客户画像</text>
+      <rect x="94" width="84" height="30" rx="15" fill="#183A31"/><text x="136" y="21" text-anchor="middle" fill="#78DBB4" font-size="12">商业信号</text>
+      <rect x="188" width="84" height="30" rx="15" fill="#30254D"/><text x="230" y="21" text-anchor="middle" fill="#D5BCFF" font-size="12">沟通建议</text>
+    </g>
+    <g transform="translate(314 87)">
+      <rect width="103" height="132" rx="18" fill="#181B29" stroke="#414A73"/>
+      <text x="14" y="26" fill="#AEB7FF" font-size="10" font-weight="700">AI INSIGHT</text>
+      <rect x="14" y="41" width="74" height="8" rx="4" fill="#E1E4F0"/>
+      <rect x="14" y="57" width="61" height="5" rx="2.5" fill="#59627B"/>
+      <text x="14" y="83" fill="white" font-size="11" font-weight="700">合作机会</text>
+      <rect x="14" y="92" width="48" height="17" rx="8.5" fill="#173B31"/><text x="38" y="104" text-anchor="middle" fill="#72DAB0" font-size="8">强信号</text>
+      <rect x="14" y="119" width="73" height="5" rx="2.5" fill="#6570A0"/>
+    </g>
+    <text x="416" y="257" text-anchor="end" fill="#777F98" font-size="11">免费使用 · 自带模型 API</text>
+  </g>
+</svg>

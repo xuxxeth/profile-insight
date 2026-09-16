@@ -15,7 +15,7 @@ export interface RawInsight {
 export interface LlmProvider { analyze(profile: ProfileData, settings: Settings): Promise<RawInsight> }
 
 export function profilePrompt(profile: ProfileData, settings: Settings) {
-  const posts = profile.posts.map((post, index) => `${index + 1}. [${post.timestamp ?? '未知时间'}] [${post.url}] ${post.text.slice(0, 600)}`).join('\n');
+  const posts = profile.posts.map((post, index) => `${index + 1}. [${post.kind ?? 'post'}] [${post.timestamp ?? '未知时间'}] [${post.url}] ${post.text.slice(0, 600)}`).join('\n');
   const purposeLabels = { sales: '寻找潜在客户', partnership: '商务合作', recruitment: '招聘人才', investment: '投资调研', networking: '建立日常联系' } as const;
   const businessContext = `联系人: ${settings.sellerName || '未填写'}\n公司: ${settings.companyName || '未填写'}\n产品或服务: ${settings.offer || '未填写'}\n核心优势: ${settings.advantages || '未填写'}\n目标客户: ${settings.targetAudience || '未填写'}\n期望行动: ${settings.callToAction || '自然回复消息'}\n禁用表达: ${settings.bannedWords || '无'}`;
   const analysisLanguage = settings.outputLanguage === 'zh-CN' ? '简体中文' : '英文';

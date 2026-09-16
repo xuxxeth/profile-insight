@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1242" height="1656" viewBox="0 0 1242 1656">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#080A11"/><stop offset=".58" stop-color="#11152B"/><stop offset="1" stop-color="#21133B"/></linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#536DFE"/><stop offset="1" stop-color="#9B5CF6"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#775CFF" stop-opacity=".5"/><stop offset="1" stop-color="#775CFF" stop-opacity="0"/></radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#02030A" flood-opacity=".55"/></filter>
+  </defs>
+  <rect width="1242" height="1656" fill="url(#bg)"/>
+  <circle cx="1080" cy="190" r="430" fill="url(#glow)"/>
+  <circle cx="130" cy="1450" r="400" fill="url(#glow)" opacity=".45"/>
+
+  <g font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">
+    <g transform="translate(72 66)">
+      <rect width="300" height="58" rx="29" fill="#1B2140" stroke="#536DFE" stroke-width="2"/>
+      <path d="M31 14h19L39 29h13L27 47l8-14H23z" fill="#AEB7FF"/>
+      <text x="67" y="39" fill="#DCE1FF" font-size="25" font-weight="700">PROFILE INSIGHT</text>
+    </g>
+    <text x="72" y="238" fill="#AEB7FF" font-size="28" font-weight="700" letter-spacing="4">只需一次点击</text>
+    <text x="72" y="342" fill="#FFFFFF" font-size="72" font-weight="800">从客户主页</text>
+    <text x="72" y="438" fill="#FFFFFF" font-size="72" font-weight="800">到个性化沟通建议</text>
+    <text x="75" y="500" fill="#969DB5" font-size="28">公开动态由你选择的大模型进行分析</text>
+
+    <path d="M621 650v710" stroke="#3D4568" stroke-width="5" stroke-dasharray="10 13"/>
+
+    <g transform="translate(72 575)" filter="url(#shadow)">
+      <rect width="1098" height="190" rx="28" fill="#171A26" stroke="#333B56" stroke-width="2"/>
+      <circle cx="92" cy="95" r="54" fill="url(#brand)"/>
+      <text x="92" y="112" text-anchor="middle" fill="white" font-size="44" font-weight="800">1</text>
+      <rect x="178" y="45" width="96" height="96" rx="22" fill="#222842"/>
+      <circle cx="226" cy="84" r="19" fill="#8F99C1"/>
+      <path d="M190 129c9-25 63-25 72 0" fill="#66709C"/>
+      <text x="310" y="82" fill="#FFFFFF" font-size="37" font-weight="700">打开客户主页</text>
+      <text x="310" y="128" fill="#8F96AB" font-size="24">支持 LinkedIn 个人、公司主页和 X</text>
+      <rect x="852" y="62" width="200" height="66" rx="33" fill="url(#brand)"/>
+      <text x="952" y="105" text-anchor="middle" fill="white" font-size="22" font-weight="700">⚡ 点击分析</text>
+    </g>
+
+    <g transform="translate(72 795)" filter="url(#shadow)">
+      <rect width="1098" height="190" rx="28" fill="#171A26" stroke="#333B56" stroke-width="2"/>
+      <circle cx="92" cy="95" r="54" fill="url(#brand)"/>
+      <text x="92" y="112" text-anchor="middle" fill="white" font-size="44" font-weight="800">2</text>
+      <g transform="translate(180 49)">
+        <rect width="104" height="92" rx="17" fill="#222842"/>
+        <rect x="17" y="18" width="70" height="9" rx="4" fill="#A6AED0"/>
+        <rect x="17" y="39" width="55" height="8" rx="4" fill="#646D91"/>
+        <rect x="17" y="59" width="64" height="8" rx="4" fill="#646D91"/>
+        <path d="M92 70l15 15 15-15" fill="none" stroke="#8D79FF" stroke-width="7" stroke-linecap="round"/>
+      </g>
+      <text x="310" y="82" fill="#FFFFFF" font-size="37" font-weight="700">自动收集公开动态</text>
+      <text x="310" y="128" fill="#8F96AB" font-size="24">边滚动边去重，最多提取 100 条有效内容</text>
+      <text x="1008" y="104" text-anchor="end" fill="#AEB7FF" font-size="25" font-weight="700">68 / 100</text>
+    </g>
+
+    <g transform="translate(72 1015)" filter="url(#shadow)">
+      <rect width="1098" height="190" rx="28" fill="#171A26" stroke="#333B56" stroke-width="2"/>
+      <circle cx="92" cy="95" r="54" fill="url(#brand)"/>
+      <text x="92" y="112" text-anchor="middle" fill="white" font-size="44" font-weight="800">3</text>
+      <g transform="translate(180 48)">
+        <circle cx="50" cy="47" r="45" fill="#222842" stroke="#5864A0" stroke-width="2"/>
+        <path d="M31 48h38M50 29v38M36 34l28 28M64 34L36 62" stroke="#9EA8FF" stroke-width="5" stroke-linecap="round"/>
+      </g>
+      <text x="310" y="82" fill="#FFFFFF" font-size="37" font-weight="700">AI 提炼有效信息</text>
+      <text x="310" y="128" fill="#8F96AB" font-size="24">识别近期主题、商业信号和最佳联系时间</text>
+      <g transform="translate(878 55)"><rect width="174" height="38" rx="19" fill="#15372E"/><text x="87" y="26" text-anchor="middle" fill="#73DAB1" font-size="17">发现强信号</text><rect y="51" width="174" height="38" rx="19" fill="#292F55"/><text x="87" y="77" text-anchor="middle" fill="#B8C0FF" font-size="17">主题正在升温</text></g>
+    </g>
+
+    <g transform="translate(72 1235)" filter="url(#shadow)">
+      <rect width="1098" height="190" rx="28" fill="url(#brand)"/>
+      <circle cx="92" cy="95" r="54" fill="#FFFFFF" fill-opacity=".18"/>
+      <text x="92" y="112" text-anchor="middle" fill="white" font-size="44" font-weight="800">4</text>
+      <g transform="translate(180 51)"><path d="M7 5h94v64H45L19 88l7-19H7z" fill="#FFFFFF" fill-opacity=".17" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="3"/><rect x="25" y="23" width="58" height="7" rx="3" fill="white"/><rect x="25" y="41" width="45" height="7" rx="3" fill="white" fill-opacity=".7"/></g>
+      <text x="310" y="82" fill="#FFFFFF" font-size="37" font-weight="800">生成个性化沟通建议</text>
+      <text x="310" y="128" fill="#ECEAFF" font-size="24">LinkedIn 私信 · X 私信 · Cold Email · 跟进</text>
+    </g>
+
+    <text x="621" y="1532" text-anchor="middle" fill="#FFFFFF" font-size="29" font-weight="700">少一点盲目群发，多一点真正相关的交流</text>
+    <text x="621" y="1583" text-anchor="middle" fill="#777F98" font-size="22">免费使用 · 配置自己的大模型 API</text>
+  </g>
+</svg>

@@ -84,5 +84,6 @@ export async function collectXProfile(
 export const xAdapter: PlatformAdapter = {
   id: 'X',
   isProfilePage: isXProfilePage,
+  getButtonAnchor: () => document.querySelector<HTMLElement>('div[data-testid="UserName"]'),
   collectProfile: collectXProfile,
 };

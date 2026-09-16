@@ -36,7 +36,7 @@ async function requestPrivacyConsent() {
 }
 
 export default defineContentScript({
-  matches: ['https://x.com/*', 'https://twitter.com/*'],
+  matches: ['https://x.com/*', 'https://twitter.com/*', 'https://www.linkedin.com/*'],
   main() {
     let busy = false;
     let cancelRequested = false;
@@ -49,8 +49,9 @@ export default defineContentScript({
     const inject = () => {
       const adapter = getActiveAdapter();
       if (!adapter || document.getElementById('profile-insight-btn')) return;
-      const anchor = document.querySelector<HTMLElement>('div[data-testid="UserName"]');
+      const anchor = adapter.getButtonAnchor();
       if (!anchor) return;
+      document.getElementById('profile-insight-button-row')?.remove();
 
       const button = document.createElement('button');
       button.id = 'profile-insight-btn';
@@ -62,6 +63,23 @@ export default defineContentScript({
         background: 'linear-gradient(135deg,#536dfe,#8b5cf6)', color: '#fff', fontWeight: '700',
         fontSize: '13px', cursor: 'pointer', boxShadow: '0 4px 14px rgba(83,109,254,.28)',
       });
+      if (adapter.id === 'LinkedIn') {
+        const isActivityHeader = Boolean(anchor.closest('.pv-recent-activity-detail__core-rail'));
+        Object.assign(button.style, {
+          display: 'flex', alignItems: 'center', marginTop: isActivityHeader ? '8px' : '0',
+          marginLeft: isActivityHeader ? '20px' : '0',
+          width: 'max-content', lineHeight: '20px', verticalAlign: 'middle',
+          position: 'relative', zIndex: '1', clear: 'both',
+        });
+      }
+
+      const stopLinkedInEvent = (event: Event) => {
+        if (adapter.id !== 'LinkedIn') return;
+        event.preventDefault();
+        event.stopPropagation();
+      };
+      button.addEventListener('pointerdown', stopLinkedInEvent);
+      button.addEventListener('mousedown', stopLinkedInEvent);
 
       const menu = document.createElement('div');
       document.getElementById('profile-insight-purpose-menu')?.remove();
@@ -77,8 +95,15 @@ export default defineContentScript({
         menu.style.display = 'none';
         busy = true;
         cancelRequested = false;
+        if (adapter.id === 'LinkedIn') sessionStorage.setItem('profile-insight-pending-purpose', purpose);
         try {
           if (!await requestPrivacyConsent()) return;
+          const collectionPageUrl = adapter.getCollectionPageUrl?.();
+          if (collectionPageUrl) {
+            sessionStorage.setItem('profile-insight-pending-purpose', purpose);
+            location.assign(collectionPageUrl);
+            return;
+          }
           const settings = await getSettings();
           if (!settings.apiKey) {
             await browser.runtime.sendMessage({ type: 'OPEN_OPTIONS' } satisfies ExtensionMessage);
@@ -91,16 +116,22 @@ export default defineContentScript({
           await browser.runtime.sendMessage({ type: 'OPEN_ANALYSIS_PANEL', purpose } satisfies ExtensionMessage);
           const profile = await adapter.collectProfile(purpose, {
             isCancelled: () => cancelRequested,
-            onProgress: (collected) => {
+            onProgress: (collected, details) => {
               button.textContent = `正在收集 ${collected}/100…`;
-              void browser.runtime.sendMessage({ type: 'COLLECTION_PROGRESS', purpose, collected } satisfies ExtensionMessage);
+              void browser.runtime.sendMessage({ type: 'COLLECTION_PROGRESS', purpose, collected, ...details } satisfies ExtensionMessage);
             },
           });
           if (!profile.posts.length) throw new Error('没有收集到可分析的动态');
           await browser.runtime.sendMessage({ type: 'ANALYZE_PROFILE', profile } satisfies ExtensionMessage);
+          sessionStorage.removeItem('profile-insight-pending-purpose');
           button.textContent = `已收集 ${profile.posts.length} 条动态`;
         } catch (error) {
-          button.textContent = error instanceof Error ? error.message : '收集失败，请重试';
+          const message = error instanceof Error ? error.message : '收集失败，请重试';
+          button.textContent = message;
+          void browser.runtime.sendMessage({
+            type: 'COLLECTION_FAILED', purpose, message,
+            profileUrl: adapter.id === 'LinkedIn' ? `${location.origin}/${location.pathname.split('/').filter(Boolean).slice(0, 2).join('/')}/` : location.href,
+          } satisfies ExtensionMessage);
         } finally {
           busy = false;
           button.disabled = false;
@@ -118,11 +149,23 @@ export default defineContentScript({
         });
         option.addEventListener('mouseenter', () => { option.style.background = '#25293a'; });
         option.addEventListener('mouseleave', () => { option.style.background = 'transparent'; });
-        option.addEventListener('click', () => { void runAnalysis(purpose.value); });
+        option.addEventListener('pointerdown', stopLinkedInEvent);
+        option.addEventListener('mousedown', stopLinkedInEvent);
+        option.addEventListener('click', (event) => {
+          stopLinkedInEvent(event);
+          // Side Panel 必须在真实用户手势中打开。LinkedIn 主页随后会跳转，
+          // 到 Activity 页后自动恢复分析时已经不再具备用户手势。
+          void browser.runtime.sendMessage({
+            type: 'OPEN_ANALYSIS_PANEL',
+            purpose: purpose.value,
+          } satisfies ExtensionMessage);
+          void runAnalysis(purpose.value);
+        });
         menu.appendChild(option);
       }
 
-      button.addEventListener('click', () => {
+      button.addEventListener('click', (event) => {
+        stopLinkedInEvent(event);
         if (busy) return;
         if (menu.style.display !== 'none') {
           menu.style.display = 'none';
@@ -135,9 +178,33 @@ export default defineContentScript({
         menu.style.display = 'block';
       });
 
-      anchor.style.position = 'relative';
-      anchor.appendChild(button);
+      if (adapter.id === 'LinkedIn') {
+        const isActivityHeader = Boolean(anchor.closest('.pv-recent-activity-detail__core-rail'));
+        if (isActivityHeader) anchor.insertAdjacentElement('afterend', button);
+        else {
+          const row = document.createElement('div');
+          row.id = 'profile-insight-button-row';
+          Object.assign(row.style, {
+            display: 'flex', alignItems: 'center', width: '100%', minHeight: '38px',
+            marginTop: '10px', padding: '0 24px 16px', position: 'static', clear: 'both',
+            flex: '0 0 auto', overflow: 'visible', isolation: 'isolate', boxSizing: 'border-box',
+          });
+          const topCard = anchor.closest<HTMLElement>('[id$="Topcard"]');
+          const topCardSection = topCard?.querySelector<HTMLElement>('section') ?? topCard;
+          if (topCardSection) topCardSection.appendChild(row);
+          else (anchor.closest<HTMLElement>('section') ?? anchor.parentElement ?? anchor).appendChild(row);
+          row.appendChild(button);
+        }
+      } else {
+        anchor.style.position = 'relative';
+        anchor.appendChild(button);
+      }
       document.body.appendChild(menu);
+
+      const pendingPurpose = sessionStorage.getItem('profile-insight-pending-purpose') as AnalysisPurpose | null;
+      if (pendingPurpose && PURPOSES.some((purpose) => purpose.value === pendingPurpose)) {
+        window.setTimeout(() => { void runAnalysis(pendingPurpose); }, 500);
+      }
     };
 
     let lastUrl = location.href;

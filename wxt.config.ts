@@ -17,6 +17,7 @@ export default defineConfig({
     host_permissions: [
       'https://x.com/*',
       'https://twitter.com/*',
+      'https://www.linkedin.com/*',
     ],
   },
 });

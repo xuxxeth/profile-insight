@@ -29,15 +29,15 @@ export default function App() {
     {view === 'history' ? <HistoryView onOpen={(entry) => { setState({ status: 'success', profile: entry.profile, result: entry.result, completedAt: entry.analyzedAt, cached: true }); setView('analysis'); }}/> : <>
 
     {state.status === 'idle' && <section className="empty">
-      <div className="bolt">⚡</div><h1>等待分析</h1><p>请先配置大模型 API，然后打开一个 X 用户主页并点击 Profile Insight 按钮。</p>
+      <div className="bolt">⚡</div><h1>等待分析</h1><p>请先配置大模型 API，然后打开 X 或 LinkedIn 用户主页并点击 Profile Insight 按钮。</p>
       <button className="primary" onClick={() => browser.runtime.openOptionsPage()}>配置大模型 API</button>
     </section>}
 
-    {state.status === 'collecting' && <section className="collecting"><div className="profile-line"><span className="avatar">↻</span><div><strong>正在收集公开动态</strong><small>{purposeName(state.purpose)} · {state.collected}/100 条</small></div></div><div className="progress"><span style={{ width: `${Math.max(3, state.collected)}%` }}/></div><p>页面会自动滚动，达到 100 条或没有更多动态时开始分析。</p>{state.collected > 0 && <button className="secondary" onClick={() => browser.runtime.sendMessage({ type: 'CANCEL_COLLECTION', tabId: state.tabId })}>停止并分析已有 {state.collected} 条</button>}<Skeleton/></section>}
+    {state.status === 'collecting' && <section className="collecting"><div className="profile-line"><span className="avatar">↻</span><div><strong>{state.stage || '正在收集公开动态'}</strong><small>{purposeName(state.purpose)} · 已加载 {state.loaded ?? state.collected} 条，提取 {state.collected} 条有效动态</small></div></div><div className="progress"><span style={{ width: `${Math.max(3, state.collected)}%` }}/></div><p>页面会自动滚动，达到 100 条或确认没有更多动态时开始分析。</p>{state.profileUrl && <a className="return-profile" href={state.profileUrl} target="_blank" rel="noreferrer">打开个人主页 ↗</a>}{state.collected > 0 && <button className="secondary" onClick={() => browser.runtime.sendMessage({ type: 'CANCEL_COLLECTION', tabId: state.tabId })}>停止并分析已有 {state.collected} 条</button>}<Skeleton/></section>}
 
     {state.status === 'loading' && <><div className="profile-line"><span className="avatar">{state.profile.displayName.slice(0, 1) || '?'}</span><div><strong>{state.profile.displayName}</strong><small>{state.profile.handle} · 正在分析 {state.profile.posts.length} 条动态</small></div></div><Skeleton/></>}
 
-    {state.status === 'error' && <section className="empty error"><div className="bolt">!</div><h1>分析没有完成</h1><p>{state.message}</p><button className="primary" onClick={() => browser.runtime.openOptionsPage()}>检查模型设置</button></section>}
+    {state.status === 'error' && <section className="empty error"><div className="bolt">!</div><h1>分析没有完成</h1><p>{state.message}</p>{state.tabId && state.purpose && <button className="primary" onClick={() => browser.runtime.sendMessage({ type: 'RETRY_COLLECTION', tabId: state.tabId })}>重新加载并继续采集</button>}{state.profileUrl && <a className="error-link" href={state.profileUrl} target="_blank" rel="noreferrer">打开个人主页 ↗</a>}<button className="secondary" onClick={() => browser.runtime.openOptionsPage()}>检查模型设置</button></section>}
 
     {state.status === 'success' && <Result state={state}/>} 
     </>}
